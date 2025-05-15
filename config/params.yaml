@@ -1,0 +1,7 @@
+gpio_config:
+  pin_motor_1: 18
+  pin_motor_2: 20
+  service_name: "motor_power"
+  messages:
+    true: "Motores ligados com sucesso."
+    false: "Motores desligados e estado inicial restaurado."
