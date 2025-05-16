@@ -36,6 +36,9 @@ class GPIOManager(Node):
         self.messages = self.params.get('messages', {})
         self.get_logger().info(f"Mensagens carregadas: {self.messages}")
 
+        # Estado inicial dos motores
+        self.motor_active = False
+
         # Setup GPIO
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin_motor_1, GPIO.OUT)
@@ -53,28 +56,27 @@ class GPIOManager(Node):
         )
         self.get_logger().info(f"Serviço '{self.service_name}' pronto.")
 
-    def motor_callback(self, request, response):
-        # Verificar se o campo 'data' é True ou False
-        if not isinstance(request.data, bool):
-            response.success = False
-            response.message = (
-                "Tipo inválido. O campo 'data' deve ser um booleano (true ou false). "
-                "Exemplo válido: {\"data\": true}"
-            )
-            self.get_logger().warn("Recebido valor inválido para 'data'.")
-            return response
-
-        # Processar solicitação
-        if request.data:
+    def set_motor_state(self, state):
+        """Função centralizada para alterar o estado dos motores."""
+        if state:
             self.get_logger().info("Ativando motores...")
             GPIO.output(self.pin_motor_1, GPIO.HIGH)
             GPIO.output(self.pin_motor_2, GPIO.LOW)
-            response.success = True
-            response.message = self.messages.get('true', "Motores ligados.")
+            self.motor_active = True
         else:
             self.get_logger().info("Desligando motores...")
             GPIO.output(self.pin_motor_1, GPIO.LOW)
             GPIO.output(self.pin_motor_2, GPIO.HIGH)
+            self.motor_active = False
+
+    def motor_callback(self, request, response):
+        """Callback do serviço ROS 2 para ativar/desativar motores."""
+        if request.data:
+            self.set_motor_state(True)  # Ativa os motores
+            response.success = True
+            response.message = self.messages.get('true', "Motores ligados.")
+        else:
+            self.set_motor_state(False)  # Desativa os motores
             response.success = True
             response.message = self.messages.get('false', "Motores desligados.")
 
