@@ -1,11 +1,10 @@
 # RPI_gpio_manager  
 ![ROS 2 Version](https://img.shields.io/badge/ROS%202-Humble-green)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-Este pacote é responsável por gerenciar os GPIOs da Raspberry Pi 4 (modelo CM4) para a plataforma robótica **LYSA V2.1.X**, fornecendo um serviço ROS 2 para ativar ou desativar motores.
+Este pacote é responsável por gerenciar duas GPIOs em uma Raspberry Pi 4, fornecendo um serviço ROS 2 para ativar ou desativar alimentação dos motores e freios em uma plataforma robótica personalizada.
 
 ## 📌 Descrição
 
@@ -16,8 +15,6 @@ O pacote `rpi_gpio_manager` fornece:
 - Controle dos pinos GPIO via arquivo de configuração: `params.yaml`
 - Respostas customizáveis no YAML
 - Limpeza automática dos GPIOs ao encerrar o nó
-
-Esse projeto foi desenvolvido para facilitar o setup inicial da plataforma robótica LYSA, permitindo fácil adaptação para outros projetos com controle de GPIO via ROS 2.
 
 ---
 
@@ -181,17 +178,6 @@ source install/setup.bash
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, pull requests ou sugerir melhorias.
 
----
-
-## © Licença
-
-MIT License – veja o arquivo `LICENSE` para detalhes.
-
----
-
-## 📈 Status do projeto
-
-Em desenvolvimento ativo. Utilizado na versão LYSA V2.1.X.
 
 ---
 
@@ -200,15 +186,6 @@ Em desenvolvimento ativo. Utilizado na versão LYSA V2.1.X.
 Desenvolvido por:  
 👤 Jordan Souza <xulipasouza@hotmail.com>  
 🛠 AllJordanSS (GitLab)
-
-Agradecimento especial aos testadores e colaboradores da comunidade ROS e GitLab.
-
----
-
-## 📦 Roadmap futuro
-
-- Integração com interface web para controle remoto
-- Suporte a PWM e sensores via GPIO
 ---
 
 
